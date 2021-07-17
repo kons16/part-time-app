@@ -1,0 +1,2 @@
+氏名 : {name}
+{date}({dayOfWeek}) {start_time}-{end_time} アルバイトを終了します。
