@@ -1,4 +1,4 @@
-package check_time
+package generate_message
 
 import (
 	"fmt"
@@ -8,8 +8,8 @@ import (
 	"syscall"
 )
 
-// startWrite はアルバイト開始時用の文章を生成する。
-func StartWrite(fp *os.File, checkTime string, m map[string]string, exePath string) {
+// GenerateStart はアルバイト開始時用の文章を生成する。
+func GenerateStart(fp *os.File, checkTime string, m map[string]string, exePath string) {
 	startTime := checkTime
 	fp.WriteString(startTime)
 	fp.Close()

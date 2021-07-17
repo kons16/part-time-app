@@ -3,7 +3,7 @@ package main
 import (
 	"flag"
 	"github.com/joho/godotenv"
-	"github.com/kons16/part-time-app/check_time"
+	"github.com/kons16/part-time-app/generate_message"
 	"log"
 	"os"
 	"strconv"
@@ -45,15 +45,15 @@ func main() {
 	defer fp.Close()
 
 	if fileType == "s" {
-		check_time.StartWrite(fp, checkTime, m, exePath)
+		generate_message.GenerateStart(fp, checkTime, m, exePath)
 	} else if fileType == "e" {
-		check_time.EndWrite(fp, checkTime, m, exePath)
+		generate_message.GenerateEnd(fp, checkTime, m, exePath)
 	}
 }
 
 func getPath() string {
 	exeFullPath, err := os.Executable()
-	if err != nil {
+	if err != nils {
 		log.Fatal("Error exec loading path.")
 		return ""
 	}

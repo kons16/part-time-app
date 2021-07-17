@@ -1,4 +1,4 @@
-package check_time
+package generate_message
 
 import (
 	"fmt"
@@ -8,8 +8,8 @@ import (
 	"syscall"
 )
 
-// EndWrite はアルバイト終了時用の文章を生成する。
-func EndWrite(fp *os.File, checkTime string, m map[string]string, exePath string) {
+// GenerateEnd はアルバイト終了時用の文章を生成する。
+func GenerateEnd(fp *os.File, checkTime string, m map[string]string, exePath string) {
 	m["{start_time}"] = readTime(fp)
 	m["{end_time}"] = checkTime
 
