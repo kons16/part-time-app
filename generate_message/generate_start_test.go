@@ -2,7 +2,6 @@ package generate_message
 
 import (
 	"bufio"
-	"fmt"
 	"github.com/joho/godotenv"
 	"log"
 	"os"
@@ -26,7 +25,7 @@ func Test_GenerateStart(t *testing.T) {
 
 	fp, err := os.OpenFile(exePath+"/save_time/start_time_test.txt", os.O_RDWR|syscall.O_RDWR, 0777)
 	if err != nil {
-		log.Fatal("Error loading start_time.txt file")
+		t.Fatalf("Error %s", err)
 		return
 	}
 	defer fp.Close()
@@ -38,13 +37,11 @@ func Test_GenerateStart(t *testing.T) {
 	templateName := "template_start_test.txt"
 	checkTime := "10:00"
 	out := extractStdout(t, fp, checkTime, m, exePath, templateName)
-	want := "氏名"
+	want := "氏名: 田中太郎"
 	outRemoveZero := removeZeroBytes(out)
 
 	if outRemoveZero != want {
-		t.Errorf("failed to test")
-		fmt.Println(out)
-		fmt.Println(want)
+		t.Fatalf("Error %s", err)
 	}
 }
 
@@ -60,14 +57,14 @@ func extractStdout(t *testing.T, fp *os.File, checkTime string, m map[string]str
 
 	r, w, err := os.Pipe()
 	if err != nil {
-		panic(err)
+		t.Fatalf("Error %s", err)
 	}
 
 	stdout := os.Stdout
 	os.Stdout = w
 	GenerateStart(fp, checkTime, m, exePath, templateName)
-	os.Stdout = stdout
 	w.Close()
+	os.Stdout = stdout
 
 	fr := bufio.NewScanner(r)
 
