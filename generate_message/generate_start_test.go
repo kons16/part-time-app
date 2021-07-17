@@ -16,7 +16,7 @@ func Test_GenerateStart(t *testing.T) {
 		log.Fatal("Error loading path")
 		return
 	}
-	exePath := reshapePath(dirPath)
+	exePath := getBeforePath(dirPath)
 	err = godotenv.Load(exePath + "/.env.test")
 	if err != nil {
 		log.Fatal("Error loading .env file")
@@ -45,7 +45,8 @@ func Test_GenerateStart(t *testing.T) {
 	}
 }
 
-func reshapePath(dirPath string) string {
+// getBeforePath は受け取った dirPath の一つ前までの絶対パスを返す
+func getBeforePath(dirPath string) string {
 	exePathSlice := strings.Split(dirPath, "/")
 	exePath := strings.Join(exePathSlice[:len(exePathSlice)-1], "/")
 	return exePath
