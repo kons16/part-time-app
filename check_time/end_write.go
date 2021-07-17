@@ -55,6 +55,7 @@ func readTime(fp *os.File) string {
 		}
 		startTime = string(b)
 	}
+	fp.WriteString("")
 	fp.Close()
 
 	return startTime
