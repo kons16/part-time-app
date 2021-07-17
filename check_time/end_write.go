@@ -9,11 +9,11 @@ import (
 )
 
 // EndWrite はアルバイト終了時用の文章を生成する。
-func EndWrite(fp *os.File, checkTime string, m map[string]string) {
+func EndWrite(fp *os.File, checkTime string, m map[string]string, exePath string) {
 	m["{start_time}"] = readTime(fp)
 	m["{end_time}"] = checkTime
 
-	ft, err := os.OpenFile("./templates/template_end.txt", os.O_RDWR|syscall.O_RDWR, 0777)
+	ft, err := os.OpenFile(exePath+"/templates/template_end.txt", os.O_RDWR|syscall.O_RDWR, 0777)
 	if err != nil {
 		log.Fatal("Error loading template_end.txt file")
 		return

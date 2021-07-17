@@ -9,14 +9,14 @@ import (
 )
 
 // startWrite はアルバイト開始時用の文章を生成する。
-func StartWrite(fp *os.File, checkTime string, m map[string]string) {
+func StartWrite(fp *os.File, checkTime string, m map[string]string, exePath string) {
 	startTime := checkTime
 	fp.WriteString(startTime)
 	fp.Close()
 
 	m["{start_time}"] = checkTime
 
-	ft, err := os.OpenFile("./templates/template_start.txt", os.O_RDWR|syscall.O_RDWR, 0777)
+	ft, err := os.OpenFile(exePath+"/templates/template_start.txt", os.O_RDWR|syscall.O_RDWR, 0777)
 	if err != nil {
 		log.Fatal("Error loading template_start.txt file")
 		return

@@ -7,6 +7,7 @@ import (
 	"log"
 	"os"
 	"strconv"
+	"strings"
 	"syscall"
 	"time"
 )
@@ -16,7 +17,8 @@ func main() {
 	fileType := flag.Args()[0]
 	checkTime := flag.Args()[1]
 
-	err := godotenv.Load()
+	exePath := getPath()
+	err := godotenv.Load(exePath + "/.env")
 	if err != nil {
 		log.Fatal("Error loading .env file")
 		return
@@ -35,7 +37,7 @@ func main() {
 		"{dayOfWeek}": dayOfWeek,
 	}
 
-	fp, err := os.OpenFile("start_time.txt", os.O_RDWR|syscall.O_RDWR, 0777)
+	fp, err := os.OpenFile(exePath+"/start_time.txt", os.O_RDWR|syscall.O_RDWR, 0777)
 	if err != nil {
 		log.Fatal("Error loading start_time.txt file")
 		return
@@ -43,8 +45,19 @@ func main() {
 	defer fp.Close()
 
 	if fileType == "s" {
-		check_time.StartWrite(fp, checkTime, m)
+		check_time.StartWrite(fp, checkTime, m, exePath)
 	} else if fileType == "e" {
-		check_time.EndWrite(fp, checkTime, m)
+		check_time.EndWrite(fp, checkTime, m, exePath)
 	}
+}
+
+func getPath() string {
+	exeFullPath, err := os.Executable()
+	if err != nil {
+		log.Fatal("Error exec loading path.")
+		return ""
+	}
+	exePathSlice := strings.Split(exeFullPath, "/")
+	exePath := strings.Join(exePathSlice[:len(exePathSlice)-1], "/")
+	return exePath
 }
