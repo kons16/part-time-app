@@ -77,6 +77,7 @@ func extractStdout(t *testing.T, fp *os.File, checkTime string, m map[string]str
 	return outStr
 }
 
+// removeZeroBytes は out を[]byteにしたとき、0で padding されているものを取り除く。
 func removeZeroBytes(out string) string {
 	var aSlice []string
 	for _, k := range out {
