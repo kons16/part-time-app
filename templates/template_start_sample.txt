@@ -1,2 +1,2 @@
 氏名 : {name}
-{date} アルバイトを開始します。
+{date}({dayOfWeek}) {start_time} アルバイトを開始します。
