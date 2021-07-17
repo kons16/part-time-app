@@ -9,14 +9,14 @@ import (
 )
 
 // GenerateStart はアルバイト開始時の文章を生成する。
-func GenerateStart(fp *os.File, checkTime string, m map[string]string, exePath string) {
+func GenerateStart(fp *os.File, checkTime string, m map[string]string, exePath string, templateName string) {
 	startTime := checkTime
 	fp.WriteString(startTime)
 	fp.Close()
 
 	m["{start_time}"] = checkTime
 
-	ft, err := os.OpenFile(exePath+"/templates/template_start.txt", os.O_RDWR|syscall.O_RDWR, 0777)
+	ft, err := os.OpenFile(exePath+"/templates/"+templateName, os.O_RDWR|syscall.O_RDWR, 0777)
 	if err != nil {
 		log.Fatal("Error loading template_start.txt file")
 		return

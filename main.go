@@ -4,10 +4,10 @@ import (
 	"flag"
 	"github.com/joho/godotenv"
 	"github.com/kons16/part-time-app/generate_message"
+	"github.com/kons16/part-time-app/util"
 	"log"
 	"os"
 	"strconv"
-	"strings"
 	"syscall"
 	"time"
 )
@@ -17,7 +17,7 @@ func main() {
 	fileType := flag.Args()[0]
 	checkTime := flag.Args()[1]
 
-	exePath := getPath()
+	exePath := util.GetPath()
 	err := godotenv.Load(exePath + "/.env")
 	if err != nil {
 		log.Fatal("Error loading .env file")
@@ -37,7 +37,7 @@ func main() {
 		"{dayOfWeek}": dayOfWeek,
 	}
 
-	fp, err := os.OpenFile(exePath+"/start_time.txt", os.O_RDWR|syscall.O_RDWR, 0777)
+	fp, err := os.OpenFile(exePath+"/save_time/start_time.txt", os.O_RDWR|syscall.O_RDWR, 0777)
 	if err != nil {
 		log.Fatal("Error loading start_time.txt file")
 		return
@@ -45,19 +45,10 @@ func main() {
 	defer fp.Close()
 
 	if fileType == "s" {
-		generate_message.GenerateStart(fp, checkTime, m, exePath)
+		templateName := "template_start.txt"
+		generate_message.GenerateStart(fp, checkTime, m, exePath, templateName)
 	} else if fileType == "e" {
-		generate_message.GenerateEnd(fp, checkTime, m, exePath)
+		templateName := "template_end.txt"
+		generate_message.GenerateEnd(fp, checkTime, m, exePath, templateName)
 	}
-}
-
-func getPath() string {
-	exeFullPath, err := os.Executable()
-	if err != nil {
-		log.Fatal("Error exec loading path.")
-		return ""
-	}
-	exePathSlice := strings.Split(exeFullPath, "/")
-	exePath := strings.Join(exePathSlice[:len(exePathSlice)-1], "/")
-	return exePath
 }

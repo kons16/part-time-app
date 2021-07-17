@@ -9,11 +9,11 @@ import (
 )
 
 // GenerateEnd はアルバイト終了時の文章を生成する。
-func GenerateEnd(fp *os.File, checkTime string, m map[string]string, exePath string) {
+func GenerateEnd(fp *os.File, checkTime string, m map[string]string, exePath string, templateName string) {
 	m["{start_time}"] = readTime(fp)
 	m["{end_time}"] = checkTime
 
-	ft, err := os.OpenFile(exePath+"/templates/template_end.txt", os.O_RDWR|syscall.O_RDWR, 0777)
+	ft, err := os.OpenFile(exePath+"/templates/"+templateName, os.O_RDWR|syscall.O_RDWR, 0777)
 	if err != nil {
 		log.Fatal("Error loading template_end.txt file")
 		return
