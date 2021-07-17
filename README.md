@@ -13,14 +13,14 @@ NAME=田中太郎
 `/templates` には、`template_start.txt` と `template_end.txt` を用意して、埋め込み文字列は `{}` で囲ってください。  
   
 ```
-% go build -o reco ./main.go
+% go build -o part ./main.go
 % export PATH=$PATH:/path/part-time-app
 
-% reco s 9:00
+% part s 9:00
 氏名 : 田中太郎
 7月17日(土) 9:00 アルバイトを開始します。
 
-% reco e 10:00
+% part e 10:00
 氏名 : 田中太郎
 7月17日(土) 9:00~10:00 アルバイトを終了します。
 ```
