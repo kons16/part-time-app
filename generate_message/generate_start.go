@@ -8,7 +8,7 @@ import (
 	"syscall"
 )
 
-// GenerateStart はアルバイト開始時用の文章を生成する。
+// GenerateStart はアルバイト開始時の文章を生成する。
 func GenerateStart(fp *os.File, checkTime string, m map[string]string, exePath string) {
 	startTime := checkTime
 	fp.WriteString(startTime)

@@ -8,7 +8,7 @@ import (
 	"syscall"
 )
 
-// GenerateEnd はアルバイト終了時用の文章を生成する。
+// GenerateEnd はアルバイト終了時の文章を生成する。
 func GenerateEnd(fp *os.File, checkTime string, m map[string]string, exePath string) {
 	m["{start_time}"] = readTime(fp)
 	m["{end_time}"] = checkTime

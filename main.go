@@ -53,7 +53,7 @@ func main() {
 
 func getPath() string {
 	exeFullPath, err := os.Executable()
-	if err != nils {
+	if err != nil {
 		log.Fatal("Error exec loading path.")
 		return ""
 	}
